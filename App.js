@@ -3,6 +3,7 @@ import React,{useState} from 'react';
 import {
   SafeAreaView,
   ScrollView,
+  FlatList,
   RefreshControl,
   StatusBar,
   StyleSheet,
@@ -14,20 +15,20 @@ import {
 } from 'react-native';
 const App = ()=>{
 const [Items,setItems] = useState([
-  {key:1,item: 'Item 1'},
-  {key:2,item: 'Item 2'},
-  {key:3,item: 'Item 3'},
-  {key:4,item: 'Item 4'},
-  {key:5,item: 'Item 5'},
-  {key:6,item: 'Item 6'},
-  {key:7,item: 'Item 7'},
-  {key:8,item: 'Item 8'},
+  {name: 'Item 1'},
+  {name: 'Item 2'},
+  {name: 'Item 3'},
+  {name: 'Item 4'},
+  {name: 'Item 5'},
+  {name: 'Item 6'},
+  {name: 'Item 7'},
+  {name: 'Item 8'},
   
 ]);
 const [Refreshing,setRefreshing] = useState(false)
 const onRefresh=()=>{
   setRefreshing(true)
-  setItems([...Items,{key: 69,item:'Items add 69'}]);
+  setItems([...Items,{key: '69',name:'Items add 69'}]);
   setRefreshing(false); 
   
 }
@@ -35,6 +36,25 @@ const onRefresh=()=>{
 
 
 return(
+
+  <FlatList
+  // numColumns={2}
+  // horizontal
+  keyExtractor={(item,index)=>index.toString()}
+  data={Items}
+  renderItem={({item})=>(
+    <View style={styles.item} >
+        <Text style={styles.text}>{item.name}</Text>
+    </View>
+  )}
+
+  refreshControl={
+    <RefreshControl refreshing={Refreshing}
+    onRefresh={onRefresh}
+    color = {['#ff00ff']}
+    />
+  }
+  />
 
 /*
 <ScrollView style={styles.body} 
