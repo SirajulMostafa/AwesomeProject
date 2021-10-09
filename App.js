@@ -16,39 +16,44 @@ import {
 import SectionList from 'react-native/Libraries/Lists/SectionList';
 const App = ()=>{
 const [Items,setItems] = useState([
-  {name: 'Item 1'},
-  {name: 'Item 2'},
-  {name: 'Item 3'},
-  {name: 'Item 4'},
-  {name: 'Item 5'},
-  {name: 'Item 6'},
-  {name: 'Item 7'},
-  {name: 'Item 8'},
-  
+  {
+    title:'Title 1',
+    data:['Item 1-1','Item 1-2','Item 1-3']
+  },
 ]);
 
-const DATA = [
-  {
-  
-    title:'Title 1',
-    data:['Item 1-1','Item1-2','Item1-3']
-  },
-  { title:'Title 2',
-    data:['Item 2-1','Item2-2','Item2-3']
-  },
-  {
-    title:'Title 3',
-    data:['Item 3-1','Item3-2','Item3-3']
-  },
 
-   { title:'Title 4',
-    data:['Item 4-1','Item4-2','Item2-2']
-    },
-]
+
+// const count =0;
+// const DATA = [
+  // {
+  // 
+    // title:'Title 1',
+    // data:['Item 1-1','Item1-2','Item1-3']
+  // },
+  // { title:'Title 2',
+    // data:['Item 2-1','Item2-2','Item2-3']
+  // },
+  // {
+    // title:'Title 3',
+    // data:['Item 3-1','Item3-2','Item3-3']
+  // },
+// 
+  //  { title:'Title 4',
+    // data:['Item 4-1','Item4-2','Item2-2']
+    // },
+// ]
+
+const [counter,setInitialState ]= useState(2)
 const [Refreshing,setRefreshing] = useState(false)
 const onRefresh=()=>{
-  setRefreshing(true)
-  setItems([...Items,{key: '69',name:'Items add 69'}]);
+ setInitialState(counter+1)
+ var titleName=" Item "+counter
+  setItems([...Items,{
+    title:'Title '+counter,
+    data:[titleName+' -1',titleName+'-2',titleName+' -3']  
+  
+  }]);
   setRefreshing(false); 
   
 }
@@ -61,9 +66,9 @@ return(
   // numColumns={2}
   // horizontal
   keyExtractor={(item,index)=>index.toString()}
-  sections={DATA}
+  sections={Items}
   renderItem={({item})=>(
-        <Text style={styles.text}>{item}</Text>
+        <Text style={styles.text}>{item} </Text>
   )}
   renderSectionHeader={({section})=>(
     <View style={styles.item} >
@@ -71,12 +76,12 @@ return(
     </View> 
   )}
 
-  // refreshControl={
-    // <RefreshControl refreshing={Refreshing}
-    // onRefresh={onRefresh}
-    // color = {['#ff00ff']}
-    // />
-  // }
+  refreshControl={
+    <RefreshControl refreshing={Refreshing}
+    onRefresh={onRefresh}
+    color = {['#ff00ff']}
+    />
+  }
   />
 
 /*
