@@ -13,6 +13,7 @@ import {
   Linking,
   Button,
 } from 'react-native';
+import SectionList from 'react-native/Libraries/Lists/SectionList';
 const App = ()=>{
 const [Items,setItems] = useState([
   {name: 'Item 1'},
@@ -25,6 +26,25 @@ const [Items,setItems] = useState([
   {name: 'Item 8'},
   
 ]);
+
+const DATA = [
+  {
+  
+    title:'Title 1',
+    data:['Item 1-1','Item1-2','Item1-3']
+  },
+  { title:'Title 2',
+    data:['Item 2-1','Item2-2','Item2-3']
+  },
+  {
+    title:'Title 3',
+    data:['Item 3-1','Item3-2','Item3-3']
+  },
+
+   { title:'Title 4',
+    data:['Item 4-1','Item4-2','Item2-2']
+    },
+]
 const [Refreshing,setRefreshing] = useState(false)
 const onRefresh=()=>{
   setRefreshing(true)
@@ -37,23 +57,26 @@ const onRefresh=()=>{
 
 return(
 
-  <FlatList
+  <SectionList
   // numColumns={2}
   // horizontal
   keyExtractor={(item,index)=>index.toString()}
-  data={Items}
+  sections={DATA}
   renderItem={({item})=>(
+        <Text style={styles.text}>{item}</Text>
+  )}
+  renderSectionHeader={({section})=>(
     <View style={styles.item} >
-        <Text style={styles.text}>{item.name}</Text>
-    </View>
+      <Text style={styles.text}>{section.title}</Text>
+    </View> 
   )}
 
-  refreshControl={
-    <RefreshControl refreshing={Refreshing}
-    onRefresh={onRefresh}
-    color = {['#ff00ff']}
-    />
-  }
+  // refreshControl={
+    // <RefreshControl refreshing={Refreshing}
+    // onRefresh={onRefresh}
+    // color = {['#ff00ff']}
+    // />
+  // }
   />
 
 /*
@@ -89,7 +112,7 @@ const styles = StyleSheet.create({
 flex:1,
     flexDirection:'column',
     // justifyContent: 'center',
-    //alignItems:'stretch',
+    // alignItems:'stretch',
    backgroundColor:'#ffffff',
    
   },  
