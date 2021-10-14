@@ -1,124 +1,53 @@
 
 import React,{useState} from 'react';
 import {
-  SafeAreaView,
-  ScrollView,
-  FlatList,
-  RefreshControl,
-  StatusBar,
+
   StyleSheet,
   View,
+  TextInput,
   Text,
-  useColorScheme,
-  Linking,
-  Button,
+
 } from 'react-native';
-import SectionList from 'react-native/Libraries/Lists/SectionList';
 const App = ()=>{
-const [Items,setItems] = useState([
-  {
-    title:'Title 1',
-    data:['Item 1-1','Item 1-2','Item 1-3']
-  },
-]);
 
-
-
-// const count =0;
-// const DATA = [
-  // {
-  // 
-    // title:'Title 1',
-    // data:['Item 1-1','Item1-2','Item1-3']
-  // },
-  // { title:'Title 2',
-    // data:['Item 2-1','Item2-2','Item2-3']
-  // },
-  // {
-    // title:'Title 3',
-    // data:['Item 3-1','Item3-2','Item3-3']
-  // },
-// 
-  //  { title:'Title 4',
-    // data:['Item 4-1','Item4-2','Item2-2']
-    // },
-// ]
-
-const [counter,setInitialState ]= useState(2)
-const [Refreshing,setRefreshing] = useState(false)
-const onRefresh=()=>{
- setInitialState(counter+1)
- var titleName=" Item "+counter
-  setItems([...Items,{
-    title:'Title '+counter,
-    data:[titleName+' -1',titleName+'-2',titleName+' -3']  
-  
-  }]);
-  setRefreshing(false); 
-  
-}
-
-
+const [name,setName] = useState('')
 
 return(
 
-  <SectionList
-  // numColumns={2}
-  // horizontal
-  keyExtractor={(item,index)=>index.toString()}
-  sections={Items}
-  renderItem={({item})=>(
-        <Text style={styles.text}>{item} </Text>
-  )}
-  renderSectionHeader={({section})=>(
-    <View style={styles.item} >
-      <Text style={styles.text}>{section.title}</Text>
-    </View> 
-  )}
+  <View style={styles.body}>
+    <Text style={styles.text}>
+      Please Enter Your Name :
 
-  refreshControl={
-    <RefreshControl refreshing={Refreshing}
-    onRefresh={onRefresh}
-    color = {['#ff00ff']}
+    </Text>
+    <TextInput 
+    style={styles.input}
+    placeholder="Password"
+    placeholderTextColor="green"
+    autoCapitalize="none"
+    // keyboardType='numeric'
+    onChangeText={(value)=>{setName(value)}}
     />
-  }
-  />
 
-/*
-<ScrollView style={styles.body} 
-refreshControl={
-<RefreshControl refreshing={Refreshing}
-onRefresh={onRefresh}
-color = {['#ff00ff']}
-/>
-}>
-  {
-    Items.map((object)=>{
-      return(
-<View style={styles.item} key={object.key}>
-  <Text style={styles.text}>{object.item}</Text>
-</View>
-      )
-    })
-  }
-<View>
-  <Text>
-    <Button title='hello title'></Button>
-  </Text>
-</View>
-</ScrollView>
-*/
+    <Text style={styles.text}>
+      Your  Name is  {name}.
 
-  );
-  
+    </Text>
+  </View>
+) 
 };
 const styles = StyleSheet.create({
+  abc:{
+ alignItems: 'center',
+ borderBottomWidth: '2',
+
+  },
   body: {
 flex:1,
     flexDirection:'column',
     // justifyContent: 'center',
-    // alignItems:'stretch',
+    alignItems:'center',
    backgroundColor:'#ffffff',
+
    
   },  
 
@@ -126,7 +55,15 @@ flex:1,
     margin:10,
     backgroundColor:'#4ae1fa',
     justifyContent: 'center',
-    alignItems:'center'
+    alignItems:'center',
+
+  },
+  input:{
+    width:200,
+    margin: 16,
+    height: 42,
+    borderColor: "pink",
+    borderWidth: 1,
   },
   text:{
     color:'#000000',
