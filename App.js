@@ -6,11 +6,55 @@ import {
   View,
   TextInput,
   Text,
+  Button,
+  TouchableOpacity,
+  Pressable,
+  Alert,
+  ToastAndroid,
 
 } from 'react-native';
+// import Pressable from 'react-native/Libraries/Components/Pressable/Pressable';
 const App = ()=>{
 
 const [name,setName] = useState('')
+const [submitted,SetSubmitted] = useState(false)
+onPressHandler =()=>{
+  if(name.length > 3){
+    SetSubmitted(!submitted)
+  }else{
+    // Alert.alert(
+    //   'Warning',
+    //   'the name must be longer than 3 characters',
+    //   [
+    //       {
+    //         text:'Do not show again',
+    //         onPress:()=>console.warn('Do not shown Pressed !')
+    //       },
+    //       {
+    //         text:'cancel',
+    //         onPress:()=>console.warn('cancel Pressed !')
+    //       },
+    //       {
+    //         text:'OK',
+    //         onPress:()=>console.warn('Ok Pressed !')
+    //       },
+          
+    // ],
+    // {
+
+    //   cancelable:true,
+    //   onDismiss:()=>console.warn('Alert dismissed'),
+    // })
+    
+    //THIS tOAST USED ONLY FOR ANDROID
+    ToastAndroid.showWithGravity(
+      'the name must be longer than 3 chanracters',
+      ToastAndroid.LONG,
+      ToastAndroid.CENTER,
+    )
+
+  }
+}
 
 return(
 
@@ -27,11 +71,45 @@ return(
     // keyboardType='numeric'
     onChangeText={(value)=>{setName(value)}}
     />
-
-    <Text style={styles.text}>
-      Your  Name is  {name}.
-
+    {/* { submitted ? <Text style={styles.text}>
+      Your  are register as  {name}.
+    
     </Text>
+    :null
+    }
+    */}
+
+    {/* <Button 
+    title={submitted ?'clear':'submit'}
+    style={styles.button}
+    onPress={onPressHandler}
+    /> */}
+
+    {/* <TouchableOpacity
+     
+     style={styles.button}
+     onPress={onPressHandler}
+     activeOpacity={0.5}
+    >
+      <Text style={styles.text}>
+      {submitted ?'clear':'submit'}
+      </Text>
+    </TouchableOpacity>
+    { submitted ? <Text style={styles.text} >Your  are register as  {name}.</Text> :null
+    } */}
+
+    <Pressable
+      // OnLongPress={onPressHandler}
+      onPress={onPressHandler}
+    style={({pressed})=>[{backgroundColor:pressed ?'#dddddd' : '#f0f'},styles.button]}
+    >
+      <Text style={styles.text}>
+      {submitted ?'clear':'submit'}
+      </Text>
+    </Pressable>
+
+    { submitted ? <Text style={styles.text} >Your  are register as  {name}.</Text> :null
+    }
   </View>
 ) 
 };
@@ -71,6 +149,9 @@ flex:1,
     margin:10,
     
 
+  },
+  button:{
+    marginBottom:5,
   }
   
   
