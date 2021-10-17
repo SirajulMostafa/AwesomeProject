@@ -5,7 +5,7 @@ import {createNativeStackNavigator} from '@react-navigation/native-stack';
 
 function HomeScreen({navigation}) {
   return (
-    <View style={StyleSheet.homescreenView}>
+    <View style={styles.homescreenView}>
       <Text>Home Screen</Text>
 
       <Button
@@ -15,10 +15,14 @@ function HomeScreen({navigation}) {
     </View>
   );
 }
-const DetailsScreen = () => {
+const DetailsScreen = ({navigation}) => {
   return (
     <View style={styles.detailsScreen}>
       <Text>Details Screen</Text>
+      <Button
+        title="Go to Details... again"
+        onPress={() => navigation.push('Details')}
+      />
     </View>
   );
 };
