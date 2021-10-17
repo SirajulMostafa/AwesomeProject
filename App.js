@@ -11,6 +11,7 @@ import {
   ToastAndroid,
   Modal,
 } from 'react-native';
+import Header from './components/Header';
 import OnPresseableButton from './components/OnPresseableButton';
 // import Pressable from 'react-native/Libraries/Components/Pressable/Pressable';
 const App = () => {
@@ -28,7 +29,9 @@ const App = () => {
   };
 
   return (
+   
     <View style={styles.centeredView}>
+       <Header/>
       <Modal
         animationType="slide"
         transparent={true}
@@ -78,7 +81,10 @@ const App = () => {
      title={submitted ?'clear':'submit'}
       />
   
-
+  <OnPresseableButton
+     onPressFunction={onPressHandler}
+     title={'test'}
+      />
       {submitted ? (
         <View style={styles.body}>
         
@@ -91,7 +97,7 @@ const App = () => {
 const styles = StyleSheet.create({
   warning_title: {
     alignItems: 'center',
-    justifyContent: 'center',
+     justifyContent: 'center',
     backgroundColor: '#ff0',
     borderTopLeftRadius: 20,
     borderTopRightRadius: 20,
@@ -129,10 +135,10 @@ const styles = StyleSheet.create({
     },
 
   centeredView: {
-    flex: 1,
-    justifyContent: 'center',
+     flex: 1,
+    // justifyContent: 'center',
     alignItems: 'center',
-    marginTop: 22,
+    // marginTop: 22,
   },
   modalView: {
     margin: 20,
@@ -153,6 +159,7 @@ const styles = StyleSheet.create({
     borderRadius: 20,
     padding: 10,
     elevation: 2,
+    marginBottom: 10,
   },
   buttonOpen: {
     backgroundColor: '#F194FF',
@@ -168,7 +175,7 @@ const styles = StyleSheet.create({
     textAlign: 'center',
   },
   modalText: {
-    marginBottom: 15,
+    marginBottom: 10,
     textAlign: 'center',
   },
 });
