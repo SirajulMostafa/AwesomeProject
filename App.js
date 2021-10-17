@@ -1,7 +1,5 @@
-
-import React,{useState} from 'react';
+import React, {useState} from 'react';
 import {
-
   StyleSheet,
   View,
   TextInput,
@@ -12,78 +10,47 @@ import {
   Alert,
   ToastAndroid,
   Modal,
-
 } from 'react-native';
+import OnPresseableButton from './components/OnPresseableButton';
 // import Pressable from 'react-native/Libraries/Components/Pressable/Pressable';
-const App = ()=>{
+const App = () => {
+  const [name, setName] = useState('');
+  const [submitted, SetSubmitted] = useState(false);
+  const [modalVisible, setModalVisible] = useState(false);
+  onPressHandler = () => {
+    if (name.length > 3) {
+      SetSubmitted(!submitted);
+      // setModalVisible(false);
+    } else {
+      setModalVisible(true);
+      
+    }
+  };
 
-const [name,setName] = useState('')
-const [submitted,SetSubmitted] = useState(false)
-const [modalVisible, setModalVisible] = useState(false);
-onPressHandler =()=>{
-  if(name.length > 3){
-     SetSubmitted(!submitted)
-    // setModalVisible(false);
-  }else{
-    setModalVisible(true)
-    // Alert.alert(
-    //   'Warning',
-    //   'the name must be longer than 3 characters',
-    //   [
-    //       {
-    //         text:'Do not show again',
-    //         onPress:()=>console.warn('Do not shown Pressed !')
-    //       },
-    //       {
-    //         text:'cancel',
-    //         onPress:()=>console.warn('cancel Pressed !')
-    //       },
-    //       {
-    //         text:'OK',
-    //         onPress:()=>console.warn('Ok Pressed !')
-    //       },
-          
-    // ],
-    // {
-
-    //   cancelable:true,
-    //   onDismiss:()=>console.warn('Alert dismissed'),
-    // })
-    
-    //THIS tOAST USED ONLY FOR ANDROID
-    // ToastAndroid.showWithGravity(
-    //   'the name must be longer than 3 chanracters',
-    //   ToastAndroid.LONG,
-    //   ToastAndroid.CENTER,
-    // )
-
-  }
-}
-
-return(
-  <View style={styles.centeredView}>
+  return (
+    <View style={styles.centeredView}>
       <Modal
         animationType="slide"
         transparent={true}
         visible={modalVisible}
         onRequestClose={() => {
-          Alert.alert("Modal has been closed.");
+          Alert.alert('Modal has been closed.');
           setModalVisible(!modalVisible);
-        }}
-      >
+        }}>
         <View style={styles.centeredView}>
           <View style={styles.modalView}>
             <View style={styles.warning_title}>
-                <Text style={styles.text}>WORNING!</Text>
-
+              <Text style={styles.text}>WORNING!</Text>
             </View>
             <View style={styles.modalBody}>
-              <Text style={styles.modalText}>Please enter more than 3 characters !</Text>
+              <Text style={styles.modalText}>
+                Please enter more than 3 characters !
+              </Text>
             </View>
-            
+
             <Pressable
               style={[styles.button, styles.buttonClose]}
-               onPress={() => setModalVisible(!modalVisible)}
+              onPress={() => setModalVisible(!modalVisible)}
               //onPress={onPressHandler}
             >
               <Text style={styles.textStyle}>Hide Modal</Text>
@@ -91,165 +58,119 @@ return(
           </View>
         </View>
       </Modal>
+
       
-      {/* <Pressable
-        style={[styles.button, styles.buttonOpen]}
-        onPress={onPressHandler}
-      >
-        <Text style={styles.textStyle}>Show Modal</Text>
-      </Pressable> */}
-   
-    <Text style={styles.text}>
-      Please Enter Your Name :
 
-    </Text>
-    <TextInput 
-    style={styles.input}
-    placeholder="Password"
-    placeholderTextColor="green"
-    autoCapitalize="none"
-    // keyboardType='numeric'
-    onChangeText={(value)=>{setName(value)}}
-    />
-    {/* { submitted ? <Text style={styles.text}>
-      Your  are register as  {name}.
-    
-    </Text>
-    :null
-    }
-    */}
+      <Text style={styles.text}>Please Enter Your Name :</Text>
+      <TextInput
+        style={styles.input}
+        placeholder="Password"
+        placeholderTextColor="green"
+        autoCapitalize="none"
+        // keyboardType='numeric'
+        onChangeText={value => {
+          setName(value);
+        }}
+      />
 
-    {/* <Button 
-    title={submitted ?'clear':'submit'}
-    style={styles.button}
-    onPress={onPressHandler}
-    /> */}
+<OnPresseableButton
+     onPressFunction={onPressHandler}
+     title={submitted ?'clear':'submit'}
+      />
+  
 
-    {/* <TouchableOpacity
-     
-     style={styles.button}
-     onPress={onPressHandler}
-     activeOpacity={0.5}
-    >
-      <Text style={styles.text}>
-      {submitted ?'clear':'submit'}
-      </Text>
-    </TouchableOpacity>
-    { submitted ? <Text style={styles.text} >Your  are register as  {name}.</Text> :null
-    } */}
-
-    <Pressable
-      // OnLongPress={onPressHandler}
-      onPress={onPressHandler}
-    style={({pressed})=>[{backgroundColor:pressed ?'#dddddd' : '#f0f'},styles.button]}
-    >
-      <Text style={styles.text}>
-      {submitted ?'clear':'submit'}
-      </Text>
-    </Pressable>
-
-    { submitted ? <Text style={styles.text} >Your  are register as  {name}.</Text> :null
-    }
-  </View>
-) 
+      {submitted ? (
+        <View style={styles.body}>
+        
+          <Text style={styles.text}>Your are register as {name}.</Text>
+        </View>
+      ) : null}
+    </View>
+  );
 };
 const styles = StyleSheet.create({
-
-
-  warning_title:{
-    
-      alignItems: 'center',
-      justifyContent:'center',
-      backgroundColor:'#ff0',
-      borderTopLeftRadius: 20,
-      borderTopRightRadius: 20,
-
-
+  warning_title: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: '#ff0',
+    borderTopLeftRadius: 20,
+    borderTopRightRadius: 20,
   },
   body: {
-flex:1,
-    flexDirection:'column',
+    flex: 1,
+    flexDirection: 'column',
     // justifyContent: 'center',
-    alignItems:'center',
-   backgroundColor:'#ffffff',
-
-   
-  },  
-  modalBody: {
-        alignItems:'center',
-       backgroundColor:'#ffffff',
-       minHeight: 200,
-    
-       
-      },  
-  item:{
-    margin:10,
-    backgroundColor:'#4ae1fa',
-    justifyContent: 'center',
-    alignItems:'center',
-
+    alignItems: 'center',
+    backgroundColor: '#ffffff',
   },
-  input:{
-    width:200,
+  modalBody: {
+    alignItems: 'center',
+    backgroundColor: '#ffffff',
+    minHeight: 200,
+  },
+  item: {
+    margin: 10,
+    backgroundColor: '#4ae1fa',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  input: {
+    width: 200,
     margin: 16,
     height: 42,
-    borderColor: "pink",
+    borderColor: 'pink',
     borderWidth: 1,
   },
-  text:{
-    color:'#000000',
-    fontSize: 30,
-    margin:5,
-    textAlign:'center'
-
-  },
+    text: {
+      color: '#000000',
+      fontSize: 30,
+      margin: 5,
+      textAlign: 'center',
+    },
 
   centeredView: {
     flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-    marginTop: 22
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginTop: 22,
   },
   modalView: {
-
     margin: 20,
-    backgroundColor: "white",
+    backgroundColor: 'white',
     borderRadius: 20,
     padding: 35,
-    alignItems: "center",
-    shadowColor: "#000",
+    alignItems: 'center',
+    shadowColor: '#000',
     shadowOffset: {
       width: 0,
-      height: 2
+      height: 2,
     },
     shadowOpacity: 0.25,
     shadowRadius: 4,
-    elevation: 5
+    elevation: 5,
   },
   button: {
     borderRadius: 20,
     padding: 10,
-    elevation: 2
+    elevation: 2,
   },
   buttonOpen: {
-    backgroundColor: "#F194FF",
+    backgroundColor: '#F194FF',
   },
   buttonClose: {
     borderBottomRightRadius: 20,
     borderBottomLeftRadius: 20,
-    backgroundColor: "#2196F3",
+    backgroundColor: '#2196F3',
   },
   textStyle: {
-    color: "white",
-    fontWeight: "bold",
-    textAlign: "center"
+    color: 'white',
+    fontWeight: 'bold',
+    textAlign: 'center',
   },
   modalText: {
     marginBottom: 15,
-    textAlign: "center"
-  }
-  
-  
+    textAlign: 'center',
+  },
 });
 
 export default App;
