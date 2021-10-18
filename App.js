@@ -3,27 +3,24 @@ import {StyleSheet, Text, View, Button} from 'react-native';
 import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import Icon from 'react-native-vector-icons/FontAwesome'
-function HomeScreen({navigation}) {
-  return (
-    <View style={styles.homescreenView}>
-      <Text>Home Screen</Text>
+function HomeScreen({ navigation }) {
+  const [count, setCount] = React.useState(0);
 
-      <Button
-        title="Go to Details"
-      onPress={() => navigation.navigate('Details',{
-        itemId:86,
-        otherParam:'this is other param ',
-      })}
-      />
-    </View>
-  );
+  React.useLayoutEffect(() => {
+    navigation.setOptions({
+      headerRight: () => (
+        <Button onPress={() => setCount(c => c + 1)} title="Update count" />
+      ),
+    });
+  }, [navigation]);
+
+  return <Text>Count: {count}</Text>;
 }
-
 function LogoTitle() {
   return (
     <Icon
       style={{ width: 50, height: 50 }}
-      // source={require('')}
+      // source={require('')}p
       name="home" size={40 }color="#900"
     />
   );
@@ -67,16 +64,9 @@ const App = () => {
         <Stack.Screen
         name="Home"
         component={HomeScreen}
-        options={{
+        options={({ navigation, route }) => ({
           headerTitle: props => <LogoTitle {...props} />,
-          headerRight: () => (
-            <Button
-              onPress={() => alert('This is a button!')}
-              title="Info"
-              color="#fff"
-            />
-          ),
-        }}
+        })}
       />
         <Stack.Screen name="Details" component={DetailsScreen} />
       </Stack.Navigator>
