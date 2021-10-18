@@ -2,7 +2,7 @@ import React from 'react';
 import {StyleSheet, Text, View, Button} from 'react-native';
 import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
-
+import Icon from 'react-native-vector-icons/FontAwesome'
 function HomeScreen({navigation}) {
   return (
     <View style={styles.homescreenView}>
@@ -16,6 +16,16 @@ function HomeScreen({navigation}) {
       })}
       />
     </View>
+  );
+}
+
+function LogoTitle() {
+  return (
+    <Icon
+      style={{ width: 50, height: 50 }}
+      // source={require('')}
+      name="home" size={40 }color="#900"
+    />
   );
 }
 const DetailsScreen = ({route,navigation}) => {
@@ -55,10 +65,19 @@ const App = () => {
       <Stack.Navigator initialRouteName="Home">
         {/* <Stack.Screen name="Home" component={HomeScreen} /> */}
         <Stack.Screen
-          name="Home"
-          component={HomeScreen}
-          options={{title: 'Overview'}}
-        />
+        name="Home"
+        component={HomeScreen}
+        options={{
+          headerTitle: props => <LogoTitle {...props} />,
+          headerRight: () => (
+            <Button
+              onPress={() => alert('This is a button!')}
+              title="Info"
+              color="#fff"
+            />
+          ),
+        }}
+      />
         <Stack.Screen name="Details" component={DetailsScreen} />
       </Stack.Navigator>
     </NavigationContainer>
